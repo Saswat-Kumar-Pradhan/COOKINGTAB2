@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Cooking Tab</title>
+    <link rel="shortcut icon" href="https://png.pngtree.com/png-clipart/20220903/ourmid/pngtree-chef-hat-and-cooking-logo-png-image_6136205.png" type="image/vnd.microsoft.icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body{
+            background-color: rgb(159, 141, 203);
+            padding-right: 13px;
+        }
+        body::-webkit-scrollbar {
+            width: 0.5em;
+        }
+        .main-heading{
+            font-size: 50px;
+            text-align: center;
+            color: rgb(159, 141, 203);
+            text-shadow: 2px 2px 8px black;
+            margin-top: 30px;
+        }
+        .btn-add{
+            background-color: orangered;
+            border: none;
+            border-radius: 20px;
+            padding: 5px 15px;
+            margin: 30px 0;
+            color: yellow;
+            font-weight: bold;
+        }
+        .ec{
+            padding-right: 0;
+        }
+        .ec:nth-last-child(5n+1) .event {background: linear-gradient(rgb(77, 0, 77), rgb(160, 0, 160));}
+        .ec:nth-last-child(5n+2) .event {background: linear-gradient(rgb(0, 19, 77), rgb(21, 0, 160));}
+        .ec:nth-last-child(5n+3) .event {background: linear-gradient(rgb(77, 0, 0), rgb(160, 0, 0));}
+        .ec:nth-last-child(5n+4) .event {background: linear-gradient(rgb(0, 77, 22), rgb(0, 160, 67));}
+        .ec:nth-last-child(5n) .event {background: linear-gradient(rgb(51, 42, 1), rgb(159, 143, 4));}
+        .event{
+            /* background-image: linear-gradient(rgb(77, 0, 77), rgb(160, 0, 160)); */
+            aspect-ratio: 1.7;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px;
+        }
+        .event p{
+            text-align: right;
+            color: rgba(255, 255, 0, 0.63);
+            margin: 0;
+        }
+        .event h1{
+            text-align: center;
+            color: white;
+            font-family: cursive;
+            font-size: 50px;
+        }
+        .event img{
+            width: 45px;
+            margin: 10px 10px 0;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+        .event img:hover{
+            transform: scale(1.5);
+        }
+        .modal-content{
+            background-color: rgb(92, 42, 42);
+            background-image: linear-gradient(rgb(92, 42, 42),rgb(48, 42, 92));
+            color:white;
+        }
+        .modal-body{
+            padding: 50px;
+        }
+        .modal-content input{
+            margin: 40px auto;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0);
+            height: 50px;
+            font-size: 30px;
+            border: none;
+            border-bottom: 2px solid white;
+            color: white !important;
+        }
+        .modal-content input:focus{
+            background-color: rgba(0, 0, 0, 0);
+            outline: none;
+        }
+        .modal-content input::placeholder{
+            color: white;
+        }
+        .modal-content input[type="checkbox"]{
+            margin: 10px;
+            text-align: center;
+            height: 15px;
+            width: 15px;
+            accent-color: orange;
+        }
+        .btn-cl{
+            border: none;
+            color: white;
+            font-size: 20px;
+            background-color: rgba(0, 0, 0, 0);
+        }
+        .profile-container{
+            position: fixed;
+            top: 100vh;
+            left:0%;
+            border-radius: 20px 20px 0px 0px;
+            background-color: rgb(53, 53, 53);
+            background-image: linear-gradient(rgb(53, 53, 53),rgb(0, 50, 0));
+            width: 100%;
+            height: 95vh;
+            transition: all 0.5s;
+        }
+        .shutter-btn{
+            background-color: rgb(53, 53, 53);
+            font-size: 45px;
+            width: 100px;
+            /* height: 30px; */
+            border: none;
+            border-radius: 20px 20px 0px 0px;
+            margin-top: -28px;
+            padding: 0px;
+            line-height: 0px;
+            color: white;
+        }
+        .profile-box{
+            background-color: yellowgreen;
+            margin: 35px 30px;
+            padding: 15px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .profile-box img{
+            width: 100px;
+            border-radius: 50%;
+        }
+        .profile-box h1{
+            font-size: 28px;
+            font-weight: bold;
+            margin: 10px 0 25px;
+        }
+        .profile-box .left{
+            border-right: 1px solid grey;
+            width: 50%;
+            text-align: center;
+        }
+        .details{
+            color: white;
+            background-color: peru;
+            padding: 7px 12px;
+            border-radius: 20px;
+            text-decoration: none;
+        }
+        .profile-box .right{
+            width: 48%;
+            text-align: center;
+        }
+        .due{
+            font-size: 55px;
+            color: red;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .paid table{
+            color: white !important;
+            width: 100%;
+        }
+        .paid tr{
+            background-color: rgba(0, 0, 0, 0.393);
+        }
+        .paid tr td{
+            padding: 6px;
+        }
+        td:nth-child(1){
+            border-radius: 10px 0 0 10px;
+        }
+        td:nth-child(2){
+            border-radius: 0 10px 10px 0;
+        }
+        .scroll-box{
+            overflow-y: scroll;
+            height: 93vh;
+        }
+        .scroll-box::-webkit-scrollbar {
+            width: 0.5em;
+        }
+        #loading-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        }
+        #loading-overlay.flex {
+            display: flex;
+        }
+        #loading-overlay img {
+            width: 200px; /* Adjust the size of the loading GIF */
+        }
+        #loading-overlay h3 {
+            text-align: center;
+            color: white;
+            margin-top: -30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="main-heading">Our<br>Cooking Tab</h1>
+    </header>
+    <section>
+        <div class="d-flex justify-content-center"><button class="btn-add" data-bs-toggle="modal" data-bs-target="#staticBackdrop">+ Add new</button></div>
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Add a Event</h1>
+                <button type="button" class="btn-cl" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                <form action="" method="post" id="addEvent">
+                    {% csrf_token %}
+                    <input type="text" name="subject" placeholder="Subject" class="form-control" id="" required>
+                    <input type="date" name="date" class="form-control" id="" required>
+                    <h3 for="" class="text-center">Contributers</h3><br>
+                    {% for profile in profiles %}
+                    <input type="checkbox" name="contributors" value="{{profile.id}}" id="{{profile.name}}"><label for="{{profile.name}}">{{profile.name}}</label><br>
+                    {% endfor %}
+                    <div class="d-flex justify-content-center"><button class="btn-add">Add <i class="fa-solid fa-check"></i></button></div>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="event-container row">
+            {% for event in events %}
+            <div class="ec col-xs-12 col-sm-12 col-md-6 col-lg-4">
+                <a class="text-decoration-none" href="{% url 'eventDetails' event.id forloop.counter %}">
+                    <div class="event">
+                        <p>{{event.date}}</p>
+                        <h1>{{event.subject}}</h1><br>
+                        <div class="d-flex justify-content-center">
+                            {% for contribution in event.contribution_set.all %}
+                            <img src="{{contribution.profile.profile_pic.url}}" alt="">
+                            {% endfor %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div><br><br><br>
+    </section>
+    <section class="profile-container" id="contentToToggle">
+        <div class="d-flex justify-content-center"><button class="shutter-btn" onclick="expandCollapse()"><i class="fa-solid fa-caret-up"></i></button></div>
+        <div class="scroll-box">
+            {% for profile in profiles %}
+            <div class="profile-box">
+                <div class="left">
+                    <img src="{{profile.profile_pic.url}}" alt="">
+                    <h1>{{profile.name}}</h1>
+                    <a href="" class="details"><i class="fa-solid fa-circle-info"></i>&nbsp; Details</a>
+                </div>
+                <div class="right">
+                    <div class="due">-456</div>
+                    <div class="paid">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>paid :</td>
+                                    <td>7688</td>
+                                </tr>
+                                <tr style="height: 10px;background-color: transparent;">
+                                    <td style="font-size: 1px;">&nbsp;</td>
+                                    <td style="font-size: 1px;">&nbsp;</td>
+                                </tr> 
+                                <tr>
+                                    <td>Total :</td>
+                                    <td>7688</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+    
+                </div>
+            </div>
+            {% endfor %}
+            <form action="{% url 'addProfile' %}"><div class="d-flex justify-content-center"><button class="btn-add" id="profile_btn">+ Add Profile</button></div></form><br>
+        </div>
+    </section>
+    <div id="loading-overlay">
+        <div>
+            <img src="https://cookingtab.vercel.app/media/profile_pics/loading.gif" alt="Loading...">
+            <h3>Loading ...</h3>
+        </div>
+    </div>
+    <script>
+        var expand = false;
+        function expandCollapse() {
+            var content = document.getElementById("contentToToggle");
+            var shutter = document.getElementsByClassName("shutter-btn");
+            var body = document.getElementsByTagName("body");
+            if (expand === false) {
+                content.style.top = "5vh";
+                shutter[0].innerHTML = '<i class="fa-solid fa-caret-down"></i>';
+                body[0].style.overflow = "hidden";
+                expand = true;
+            } else {
+                content.style.top = "100vh";
+                shutter[0].innerHTML = '<i class="fa-solid fa-caret-up"></i>';
+                body[0].style.overflow = "scroll";
+                expand = false;
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#addEvent").on("submit", function () {
+                $("#loading-overlay").addClass("flex");
+                $("#myForm").submit();
+            });
+            $(".event").on("click", function () {
+                $("#loading-overlay").addClass("flex");
+            });
+            $("#profile_btn").on("click", function () {
+                $("#loading-overlay").addClass("flex");
+            });
+        });
+    </script>
+</body>
+</html>
