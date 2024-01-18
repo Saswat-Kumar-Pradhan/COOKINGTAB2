@@ -1,6 +1,10 @@
 from django.shortcuts import render,redirect
 from .models import Event, Profile, Purchase, Contribution
 from django.db.models import Sum
+from PIL import Image
+from io import BytesIO
+from django.core.files.storage import default_storage
+
 
 # Create your views here.
 
@@ -28,7 +32,18 @@ def addProfile(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         profile_pic = request.FILES.get('profile_pic')
-        profile = Profile.objects.create(name=name, profile_pic=profile_pic)
+        image = Image.open(profile_pic)
+        size = min(image.size)
+        left = (image.width - size) / 2
+        top = (image.height - size) / 2
+        right = (image.width + size) / 2
+        bottom = (image.height + size) / 2
+        image = image.crop((left, top, right, bottom))
+        thumb_io = BytesIO()
+        image.save(thumb_io, format='PNG')
+        thumb_path = f'profile_pics/{name}_profile_pic.jpg'
+        default_storage.save(thumb_path, thumb_io)
+        profile = Profile.objects.create(name=name, profile_pic=thumb_path)
         profile.save()
         return redirect('/')
     return render(request, 'addProfile.html')
@@ -57,3 +72,10 @@ def eventDetails(request, event_id, y):
         return redirect('eventDetails', event_id, y)
     context={'event':event,'event_contributions':event_contributions, "event_purchase":event_purchase,'x':x}
     return render(request, 'eventDetails.html', context)
+
+def profileDetails(request, profile_id):
+    profile = Profile.objects.get(pk=profile_id)
+    event_contributions = Contribution.objects.filter(profile=profile).all()
+    event_purchase = Purchase.objects.filter(profile=profile).all()
+    context={'profile':profile,'event_contributions':event_contributions, "event_purchase":event_purchase}
+    return render(request, 'profileDetails.html', context)

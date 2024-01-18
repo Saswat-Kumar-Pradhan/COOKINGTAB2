@@ -234,7 +234,7 @@
                 <form action="" method="post" id="addEvent">
                     {% csrf_token %}
                     <input type="text" name="subject" placeholder="Subject" class="form-control" id="" required>
-                    <input type="date" name="date" class="form-control" id="" required>
+                    <input type="date" name="date" class="form-control" id="eventDate" required>
                     <h3 for="" class="text-center">Contributers</h3><br>
                     {% for profile in profiles %}
                     <input type="checkbox" name="contributors" value="{{profile.id}}" id="{{profile.name}}"><label for="{{profile.name}}">{{profile.name}}</label><br>
@@ -271,7 +271,7 @@
                 <div class="left">
                     <img src="{{profile.profile_pic.url}}" alt="">
                     <h1>{{profile.name}}</h1>
-                    <a href="" class="details"><i class="fa-solid fa-circle-info"></i>&nbsp; Details</a>
+                    <a href="{% url 'profileDetails' profile.id %}" class="details"><i class="fa-solid fa-circle-info"></i>&nbsp; Details</a>
                 </div>
                 <div class="right">
                     <div class="due">-456</div>
@@ -331,13 +331,11 @@
                 $("#loading-overlay").addClass("flex");
                 $("#myForm").submit();
             });
-            $(".event").on("click", function () {
-                $("#loading-overlay").addClass("flex");
-            });
-            $("#profile_btn").on("click", function () {
-                $("#loading-overlay").addClass("flex");
-            });
         });
+    </script>
+    <script>
+        // Set min attribute to the current date for the date input
+        document.getElementById('eventDate').min = new Date().toISOString().split('T')[0];
     </script>
 </body>
 </html>
