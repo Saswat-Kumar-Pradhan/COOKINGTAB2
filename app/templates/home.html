@@ -274,13 +274,13 @@
                     <a href="{% url 'profileDetails' profile.id %}" class="details"><i class="fa-solid fa-circle-info"></i>&nbsp; Details</a>
                 </div>
                 <div class="right">
-                    <div class="due">-456</div>
+                    <div class="due">{{ profile.due|floatformat:0 }}</div>
                     <div class="paid">
                         <table>
                             <tbody>
                                 <tr>
                                     <td>paid :</td>
-                                    <td>7688</td>
+                                    <td>{{ profile.paid|floatformat:2 }}</td>
                                 </tr>
                                 <tr style="height: 10px;background-color: transparent;">
                                     <td style="font-size: 1px;">&nbsp;</td>
@@ -288,7 +288,7 @@
                                 </tr> 
                                 <tr>
                                     <td>Total :</td>
-                                    <td>7688</td>
+                                    <td>{{ profile.total|floatformat:2 }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -331,10 +331,17 @@
                 $("#loading-overlay").addClass("flex");
                 $("#myForm").submit();
             });
+            var dueAmount = parseFloat($('.due').text());
+            $('.due').each(function() {
+        var dueAmount = parseFloat($(this).text());
+        if (dueAmount >= 0) {
+            // If negative, apply a green color
+            $(this).css('color', 'green');
+        }
+    });
         });
     </script>
     <script>
-        // Set min attribute to the current date for the date input
         document.getElementById('eventDate').min = new Date().toISOString().split('T')[0];
     </script>
 </body>

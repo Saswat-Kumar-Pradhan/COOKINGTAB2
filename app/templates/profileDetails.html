@@ -75,7 +75,7 @@
 <body>
     <a href="{% url 'home' %}" class="icons" id="back_icon"><i class="fa-solid fa-arrow-left"></i></a>
     <a href="" class="icons"><i class="fa-solid fa-pen"></i></a>
-    <a href="" class="icons"><i class="fa-solid fa-trash"></i></a>
+    <a href="#" onclick="confirmDelete('{{ profile.id }}')" class="icons"><i class="fa-solid fa-trash"></i></a>
     <div class="text-center">
         <img src="{{profile.profile_pic.url}}" alt="">
         <h1>{{profile.name}}</h1>
@@ -88,7 +88,7 @@
         <table>
             <thead>
                 <tr>
-                    <th style="width: 90px;">Date</th>
+                    <th style="width: 93px;">Date</th>
                     <th>Event</th>
                     <th>Products</th>
                     <th style="width: 55px;">Price</th>
@@ -114,7 +114,7 @@
         <table>
             <thead>
                 <tr>
-                    <th style="width: 90px;">Date</th>
+                    <th style="width: 93px;">Date</th>
                     <th>Event</th>
                     <th style="width: 55px;">Price</th>
                 </tr>
@@ -147,6 +147,13 @@
             investments[0].style.display = 'block';
         }
         contributions[0].style.display = 'none';
+        function confirmDelete(eventId) {
+            var confirmation = confirm('Are you sure you want to delete this profile?');
+            if (confirmation) {
+                window.location.href = "{% url 'deleteProfileDetails' 0 %}".replace('0', eventId);
+            } else {
+            }
+        }
     </script>
 </body>
 </html>
