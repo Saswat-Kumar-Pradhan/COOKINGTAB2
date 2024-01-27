@@ -332,13 +332,13 @@
                 $("#myForm").submit();
             });
             var dueAmount = parseFloat($('.due').text());
-            $('.due').each(function() {
-        var dueAmount = parseFloat($(this).text());
-        if (dueAmount >= 0) {
-            // If negative, apply a green color
-            $(this).css('color', 'green');
-        }
-    });
+                $('.due').each(function() {
+                var dueAmount = parseFloat($(this).text());
+                if (dueAmount >= 0) {
+                    // If negative, apply a green color
+                    $(this).css('color', 'green');
+                }
+            });
         });
     </script>
     <script>
