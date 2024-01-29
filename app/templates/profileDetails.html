@@ -16,22 +16,22 @@
             width: 180px;
             border-radius: 50%;
             margin: 70px 0 30px;
-            animation: ppic 1s 1;
+            animation: ppic 0.7s 1;
         }
         @keyframes ppic{
             0%{
                 opacity: 0;
                 transform: scale(0.5);
             }
-            60%{
+            40%{
                 opacity: 1;
                 transform: scale(1.2);
             }
-            80%{
-                transform: scale(0.9);
+            60%{
+                transform: scale(0.95);
             }
-            90%{
-                transform: scale(1.1);
+            80%{
+                transform: scale(1.05);
             }
             100%{
                 transform: scale(1);
@@ -40,6 +40,20 @@
         h1{
             font-weight: bolder;
             font-size: 40px;
+            animation: phdng 1s 1;
+        }
+        @keyframes phdng{
+            0%{
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            50%{
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100%{
+
+            }
         }
         .icons{
             font-size: 20px;
@@ -75,9 +89,22 @@
             margin: 20px;
             border-radius: 20px;
             overflow-y: auto;
-            animation: tbl 0.5s 1;
+            animation: tbl 1.2s 1;
         }
         @keyframes tbl{
+            0%{
+                opacity: 0;
+                transform: translateX(200px);
+            }
+            60%{
+                opacity: 0;
+                transform: translateX(200px);
+            }
+            100%{
+
+            }
+        }
+        @keyframes tbl2{
             0%{
                 opacity: 0;
                 transform: translateX(200px);
@@ -170,10 +197,12 @@
 
         function viewContributions(){
             contributions[0].style.display = 'block';
+            contributions[0].style.animation = 'tbl2 0.5s 1';
             investments[0].style.display = 'none';
         }
         function viewInvestments(){
             contributions[0].style.display = 'none';
+            investments[0].style.animation = 'tbl2 0.5s 1';
             investments[0].style.display = 'block';
         }
         investments[0].style.display = 'none';

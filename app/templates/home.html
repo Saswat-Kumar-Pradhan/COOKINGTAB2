@@ -61,7 +61,7 @@
         }
         .event img{
             width: 45px;
-            margin: 10px 10px 0;
+            margin: 10px 10px 10px 10px;
             border-radius: 50%;
             transition: all 0.2s;
         }
@@ -214,6 +214,12 @@
             color: white;
             margin-top: -30px;
         }
+        .length{
+            overflow-x: auto;
+        }
+        .justify-left {
+            justify-content: flex-start !important;
+        }
     </style>
 </head>
 <body>
@@ -252,7 +258,7 @@
                     <div class="event">
                         <p>{{event.date}}</p>
                         <h1>{{event.subject}}</h1><br>
-                        <div class="d-flex justify-content-center">
+                        <div class="length d-flex justify-content-center">
                             {% for contribution in event.contribution_set.all %}
                             <img src="{{contribution.profile.profile_pic.url}}" alt="">
                             {% endfor %}
@@ -343,6 +349,16 @@
     </script>
     <script>
         document.getElementById('eventDate').min = new Date().toISOString().split('T')[0];
+        document.addEventListener("DOMContentLoaded", function () {
+            var elements = document.getElementsByClassName("length");
+
+            for (var i = 0; i < elements.length; i++) {
+            if (elements[i].scrollWidth > elements[i].clientWidth) {
+                    // Content overflows, apply style to justify content to the left
+                    elements[i].classList.add("justify-left");
+                }
+            }
+        });
     </script>
 </body>
 </html>
