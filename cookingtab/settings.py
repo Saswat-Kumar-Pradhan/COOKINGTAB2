@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-m&m%lg2f-dt&dlz7mj+)1tx@5vd-^w_tm4%wa1c9sdk!iju^z+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1','cookingdata.pythonanywhere.com']
 
 # Application definition
 
