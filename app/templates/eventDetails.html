@@ -253,7 +253,7 @@
     </style>
 </head>
 <body>
-    <a href="{% url 'home' %}" class="icons" id="back_icon"><i class="fa-solid fa-arrow-left"></i></a>
+    <a href="#" class="icons" id="back_icon" onclick="history.back(); return false;"><i class="fa-solid fa-arrow-left"></i></a>
     <a href="" class="icons" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"><i class="fa-solid fa-pen"></i></a>
     <a href="#" onclick="confirmDelete('{{ event.id }}', '{{ x }}')" class="icons"><i class="fa-solid fa-trash"></i></a>
     <br><br><br><br><br>
@@ -375,7 +375,7 @@
             });
         });
         function confirmDelete(eventId, xValue) {
-            var confirmation = confirm('Are you sure you want to delete this event?');
+            var confirmation = confirm('Are you sure you want to delete this event? All the contributions and investments are going to be delete of the current event you want to be delete.');
             if (confirmation) {
                 // If the user confirms, redirect to the delete URL
                 window.location.href = "{% url 'deleteEventDetails' 0 %}".replace('0', eventId);

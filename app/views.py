@@ -4,6 +4,8 @@ from django.db.models import Sum
 from PIL import Image
 from io import BytesIO
 from django.core.files.storage import default_storage
+from django.contrib import messages
+import os
 
 
 # Create your views here.
@@ -59,11 +61,38 @@ def addProfile(request):
 
 
 def profileDetails(request, profile_id):
+    message = messages.get_messages(request)
     profile = Profile.objects.get(pk=profile_id)
     event_contributions = Contribution.objects.filter(profile=profile).all()
     event_purchase = Purchase.objects.filter(profile=profile).all()
-    context={'profile':profile,'event_contributions':event_contributions, "event_purchase":event_purchase}
+    context={'profile':profile,'event_contributions':event_contributions, "event_purchase":event_purchase,'messages': message}
     return render(request, 'profileDetails.html', context)
+
+
+def editProfileDetails(request, profile_id):
+    profile = Profile.objects.get(pk=profile_id)
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        profile_pic = request.FILES.get('profile_pic')
+        image = Image.open(profile_pic)
+        size = min(image.size)
+        left = (image.width - size) / 2
+        top = (image.height - size) / 2
+        right = (image.width + size) / 2
+        bottom = (image.height + size) / 2
+        image = image.crop((left, top, right, bottom))
+        thumb_io = BytesIO()
+        image.save(thumb_io, format='PNG')
+        thumb_path = f'profile_pics/{profile_id}_profile_pic.png'
+        if profile.profile_pic:
+                profile.profile_pic.delete()
+        default_storage.save(thumb_path, thumb_io)
+        profile.profile_pic = thumb_path
+        profile.name = name
+        profile.save()
+        return redirect('/')
+    context={'profile':profile}
+    return render(request, 'editProfile.html', context)
 
 
 def deleteProfileDetails(request, profile_id):
@@ -71,7 +100,10 @@ def deleteProfileDetails(request, profile_id):
     contributions = Contribution.objects.filter(profile=profile_id)
     purchases = Purchase.objects.filter(profile=profile_id)
     if contributions.exists() or purchases.exists():
+        messages.warning(request, "Can't delete. There are some pending amounts in the events.")
         return redirect('profileDetails', profile_id)
+    if current_profile.profile_pic:
+                current_profile.profile_pic.delete()
     current_profile.delete()
     return redirect('home')
 

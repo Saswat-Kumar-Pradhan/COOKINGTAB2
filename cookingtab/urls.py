@@ -25,6 +25,7 @@ urlpatterns = [
     path('', home, name='home'),
     path('addProfile', addProfile, name='addProfile'),
     path('profileDetails/<int:profile_id>', profileDetails, name='profileDetails'),
+    path('editProfileDetails/<int:profile_id>', editProfileDetails, name='editProfileDetails'),
     path('deleteProfileDetails/<int:profile_id>', deleteProfileDetails, name='deleteProfileDetails'),
     path('eventDetails/<int:event_id>/<int:y>', eventDetails, name='eventDetails'),
     path('editEventDetails/<int:event_id>/<int:y>', editEventDetails, name='editEventDetails'),
