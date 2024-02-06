@@ -17,6 +17,7 @@
     <style>
         body {
             background-color: yellowgreen;
+            padding: 0 !important;
         }
 
         img {
@@ -175,6 +176,7 @@
         .warning-message{
             text-align: center;
             background-color: red;
+            background-image: linear-gradient(rgb(217, 41, 76),rgb(138, 36, 36));
             color: white;
         }
         .warning-message img{
@@ -186,6 +188,12 @@
         .warning-message button{
             margin-bottom: 20px;
             width: 50%;
+        }
+        .modal{
+            padding: 0 !important;
+        }
+        .modal-content, .modal-body{
+            border-radius: 30px !important;
         }
     </style>
 </head>
@@ -266,7 +274,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body warning-message">
-                    <img src="https://media.tenor.com/HKnvtwrIBlYAAAAi/x-no.gif" alt="">
+                    <img src="https://media1.giphy.com/media/ezeIT99bBnSR29GeU9/giphy.gif?cid=6c09b952at26eedmxldg633gnnzyub039nc5zb91mr6ed175&ep=v1_stickers_related&rid=giphy.gif&ct=s" alt="">
                     {% for message in messages %}
                     <h4>
                         {{ message }}

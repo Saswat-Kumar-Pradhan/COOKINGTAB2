@@ -2,6 +2,13 @@ from django.db import models
 
 # Create your models here.
 
+class Tab(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
+    otp = models.CharField(max_length=100)
+    creation_time = models.DateTimeField(auto_now_add=True)
+
 class Profile(models.Model):
     name = models.CharField(max_length=100)
     profile_pic = models.ImageField(upload_to='profile_pics/', blank=True, null=True)

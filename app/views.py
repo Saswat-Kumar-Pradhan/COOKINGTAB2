@@ -10,6 +10,18 @@ import os
 
 # Create your views here.
 
+def loginSignup(request):
+    return render(request, 'loginSignup.html')
+
+
+def signup(request):
+    if request.method == 'POST':
+        tabname = request.POST.get('tabname')
+        date = request.POST.get('email')
+        date = request.POST.get('pswd')
+        return redirect('/loginSignup')
+
+
 def home(request):
     events = Event.objects.all().order_by('-id')
     profiles = Profile.objects.all()
@@ -103,7 +115,7 @@ def deleteProfileDetails(request, profile_id):
         messages.warning(request, "Can't delete. There are some pending amounts in the events.")
         return redirect('profileDetails', profile_id)
     if current_profile.profile_pic:
-                current_profile.profile_pic.delete()
+        current_profile.profile_pic.delete()
     current_profile.delete()
     return redirect('home')
 
