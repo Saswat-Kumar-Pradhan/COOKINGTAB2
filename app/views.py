@@ -191,3 +191,6 @@ def deleteEventDetails(request, event_id):
     current_event = Event.objects.get(pk=event_id)
     current_event.delete()
     return redirect('home')
+
+def timer(request):
+    return render(request, 'timer.html')

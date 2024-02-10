@@ -31,5 +31,8 @@ urlpatterns = [
     path('eventDetails/<int:event_id>/<int:y>', eventDetails, name='eventDetails'),
     path('editEventDetails/<int:event_id>/<int:y>', editEventDetails, name='editEventDetails'),
     path('deleteEventDetails/<int:event_id>', deleteEventDetails, name='deleteEventDetails'),
+
+    path('timer', timer, name='timer'),
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

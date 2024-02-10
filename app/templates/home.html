@@ -377,6 +377,7 @@
         transition: -webkit-transform 200ms;
         transition: transform 200ms;
         transition: transform 200ms, -webkit-transform 200ms;
+        scale: 0.5;
         }
 
         .line-1 {
@@ -413,7 +414,7 @@
         margin: auto;
         position: fixed;
         top: 0;
-        bottom: 860px;
+        bottom: 800px;
         left: 340px;
         right: 0;
         width: 80px;
@@ -650,7 +651,7 @@
          <span class="lines line-3"></span>
        </label>
      
-        <a href="#" class="menu-item blue"> <i class="fa-solid fa-hourglass-end"><p>Timer</p></i> </a>
+        <a href="{% url 'timer' %}" class="menu-item blue"> <i class="fa-solid fa-hourglass-end"><p>Timer</p></i> </a>
         <a href="#" class="menu-item green"> <i class="fa fa-coffee"><p>Chill</p></i> </a>
         <a href="{% url 'loginSignup' %}" class="menu-item red"> <i class="fa-solid fa-right-from-bracket"><p>Logout</p></i> </a>
         <a href="#" class="menu-item purple"> <i class="fa-solid fa-share"><p>Share</p></i> </a>
@@ -812,16 +813,21 @@
     <script>
         let x = document.getElementsByClassName('menu')
         let y = document.getElementsByClassName('menu-open-button')
+        let z = document.getElementsByClassName('lines')
         flag = true;
         y[0].onclick = function() {
             if(flag == true){
                 x[0].style.bottom = "0px"
                 x[0].style.left = "0px"
+                z[0].style.scale = "1"
+                z[2].style.scale = "1"
                 flag = false;
             }
             else{
                 x[0].style.bottom = ""
                 x[0].style.left = ""
+                z[0].style.scale = "0.5"
+                z[2].style.scale = "0.5"
                 flag = true;
             }
         };
