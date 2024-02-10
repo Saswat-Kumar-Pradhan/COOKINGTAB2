@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Tab(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     email = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
     otp = models.CharField(max_length=100)

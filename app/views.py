@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Event, Profile, Purchase, Contribution
+from .models import Event, Profile, Purchase, Contribution, Tab
 from django.db.models import Sum
 from PIL import Image
 from io import BytesIO
@@ -11,15 +11,32 @@ import os
 # Create your views here.
 
 def loginSignup(request):
+    if request.method == 'POST':
+        if 'login' in request.POST:
+            tabname = request.POST.get('tabname')
+            psd = request.POST.get('pswd')
+            try:
+                tab_instance = Tab.objects.get(name=tabname, password=psd)
+                return redirect('/home')
+            except:
+                pass
+        elif 'register' in request.POST:
+            tabname = request.POST.get('tabname')
+            email = request.POST.get('email')
+            psd = request.POST.get('pswd')
+            Tab.objects.create(name=tabname, email=email, password=psd)
+            return redirect('/')
     return render(request, 'loginSignup.html')
 
 
 def signup(request):
     if request.method == 'POST':
         tabname = request.POST.get('tabname')
-        date = request.POST.get('email')
-        date = request.POST.get('pswd')
+        email = request.POST.get('email')
+        psd = request.POST.get('pswd')
+        Tab.objects.create(name=tabname, email=email, password=psd)
         return redirect('/loginSignup')
+    return render(request, 'loginSignup.html')
 
 
 def home(request):
@@ -46,7 +63,7 @@ def home(request):
                 user = Profile.objects.get(pk=contributor)
                 new_data = Contribution(event=current_event, profile=user, amount=0)
                 new_data.save()
-        return redirect('/')
+        return redirect('/home')
     context={'events':events, 'profiles':profiles,'event_contributions':event_contributions}
     return render(request, 'home.html', context)
 
@@ -68,7 +85,7 @@ def addProfile(request):
         default_storage.save(thumb_path, thumb_io)
         profile = Profile.objects.create(name=name, profile_pic=thumb_path)
         profile.save()
-        return redirect('/')
+        return redirect('/home')
     return render(request, 'addProfile.html')
 
 
@@ -102,7 +119,7 @@ def editProfileDetails(request, profile_id):
         profile.profile_pic = thumb_path
         profile.name = name
         profile.save()
-        return redirect('/')
+        return redirect('/home')
     context={'profile':profile}
     return render(request, 'editProfile.html', context)
 

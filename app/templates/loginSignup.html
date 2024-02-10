@@ -89,7 +89,7 @@ label {
   border-end-end-radius: 0;
   border-end-start-radius: 0;
   transform: translateY(5%);
-  transition: .8s ease-in-out;
+  transition: .5s ease-in-out;
 }
 
 .register label {
@@ -136,21 +136,23 @@ label {
 		<input type="checkbox" id="chk" aria-hidden="true">
 
 			<div class="login">
-				<form class="form">
+				<form class="form" method="post">
+                    {% csrf_token %}
 					<label for="chk" aria-hidden="true">Log in</label>
-					<input class="input" type="email" name="email" placeholder="Email" required="">
+					<input class="input" type="text" name="tabname" placeholder="Tab Name (One Word)" required="">
 					<input class="input" type="password" name="pswd" placeholder="Password" required="">
-					<button>Log in</button>
+					<button name="login">Log in</button>
 				</form>
 			</div>
 
-      <div class="register">
-				<form class="form" action="signup">
+            <div class="register">
+				<form class="form" method="post">
+                    {% csrf_token %}
 					<label for="chk" aria-hidden="true">Register</label>
-					<input class="input" type="text" name="tabname" placeholder="Username" required="">
+					<input class="input" type="text" name="tabname" placeholder="Create a Tabname (One Word)" required="">
 					<input class="input" type="email" name="email" placeholder="Email" required="">
 					<input class="input" type="password" name="pswd" placeholder="Password" required="">
-					<button>Register</button>
+					<button name="register">Register</button>
 				</form>
 			</div>
 	</div>
